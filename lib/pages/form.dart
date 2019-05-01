@@ -63,7 +63,7 @@ class RegFormState extends State<RegForm> {
         };
         crudObj.addUserData(userData);
         addUser(globals.userId, phone, first, last);
-        readGames();
+        readGames(context);
         getUser(globals.userId);
         Navigator.pushNamed(context, '/');
         //_showQuestionDialog();

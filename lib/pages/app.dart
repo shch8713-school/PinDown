@@ -19,6 +19,7 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
       //readGames();
     //getUser(globals.userId);
+    var pinget = readGames(context);
     return AuthProvider(
         auth: Auth(),
 

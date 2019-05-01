@@ -1,7 +1,9 @@
 import 'package:firebase_database/firebase_database.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_alert/flutter_alert.dart';
 import 'globals.dart' as globals;
 import 'package:google_maps_flutter/google_maps_flutter.dart';
+import 'package:pickup_app/pages/map.dart';
 //add dependency "firebase_database: ^2.0.3" to pubspec.yaml
 
 //import 'package:flutter/material.dart';
@@ -80,7 +82,7 @@ void mapfields() {
 //connect to firebase
 final dbref = FirebaseDatabase.instance.reference();
 
-void setmarks() {
+void setmarks(BuildContext context) {
   print('Creating Pins');
   print(globals.gameslist.length);
   int i = 0;
@@ -98,9 +100,34 @@ void setmarks() {
           game.playspace.lon,
         ),
         infoWindow:
-            InfoWindow(title: game.gametype, snippet: game.playspace.name),
+            InfoWindow(title: game.gametype, snippet: 'Players:${game.players}'),
         onTap: () {
-          updateGame(game.gametype, globals.userId);
+          showAlert
+          (
+            context: context,
+            title: 'Join ${game.gametype}?',
+            body: "Location: ${game.playspace.name} \n Players: ${game.players}",
+            actions: [
+              AlertAction(
+                text: "Cancel",
+                isDestructiveAction: true,
+                onPressed: () {
+                  print("Do Nothing");
+                //Navigator.of(context).pushNamed('/home');
+                },
+              ),
+              AlertAction(
+                text: "Join",
+                isDestructiveAction: true,
+                onPressed: () {
+                  //Navigator.pushNamed(context, '/home'); //Direct to home page
+                  updateGame(game.gametype, globals.userId, context);
+                },
+              ),
+            ],
+          );
+          
+              
         });
     print('adding the mark');
     mapmarks.add(thismark);
@@ -164,7 +191,7 @@ void createGame(
 
 //call this when a player adds themselves to a game
 //just increments game's player count
-void updateGame(String title, String uid) {
+void updateGame(String title, String uid, context) {
   Map gamemap = globals.gamemap;
   int players = gamemap[title].players;
   players = players + 1;
@@ -176,12 +203,12 @@ void updateGame(String title, String uid) {
     'players': players,
     'playerlist': uplayerlist,
   });
-  readGames();
+  readGames(context);
 }
 
 //call this to receive a list of game objects, one for each game in the db
 //sets the global game list
-void readGames() {
+void readGames(BuildContext context) {
   mapfields();
   print('reading games');
   //var tgame = new Game.exists('localgame', 3, 'yeet and yeetet', fields[0]);
@@ -209,8 +236,37 @@ void readGames() {
           value: (game) => game,
         );
         globals.gamemap = gamemap;
-        setmarks();
+        setmarks(context);
       });
     });
   });
 }
+
+ /* void makeDialogue(BuildContext context, Game game)
+  {
+    showAlert
+    (
+      context: context,
+      title: 'Allow "Pick-UP" to access your location?',
+      body: "Your location will not be displayed or shared with others.",
+      actions: [
+        AlertAction(
+          text: "Don't Allow",
+          isDestructiveAction: true,
+          onPressed: () {
+            print("Do Nothing");
+          //Navigator.of(context).pushNamed('/home');
+          },
+        ),
+        AlertAction(
+          text: "Allow",
+          isDestructiveAction: true,
+          onPressed: () {
+            //Navigator.pushNamed(context, '/home'); //Direct to home page
+            print('home page: map');
+          },
+        ),
+      ],
+    );
+  }*/
+

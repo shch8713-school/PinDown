@@ -49,7 +49,7 @@ class LoginState extends State<Login> {
           globals.userEmail = _email;
           globals.userId = await auth.signInWithEmaiAndPassword(_email, _password);
           //_showQuestionDialog();
-          readGames();
+          readGames(context);
           getUser(globals.userId);
           Navigator.pushNamed(context, '/');
       } catch (e) {

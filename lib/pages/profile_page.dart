@@ -85,8 +85,8 @@ class ProfileInfoState extends State<ProfileInfo> {
             child: Text('Test: updateGame', style: TextStyle(color: Colors.white)),
             color: Colors.green,
             onPressed: () {
-              updateGame('TestGame', globals.userId);
-              readGames();
+              updateGame('TestGame', globals.userId, context);
+              readGames(context);
             },
           ),
 
@@ -95,7 +95,7 @@ class ProfileInfoState extends State<ProfileInfo> {
                 child: Text('Test: readGames', style: TextStyle(color: Colors.white)),
                 color: Colors.green,
                 onPressed: (){
-                  readGames();
+                  readGames(context);
                 },
               ),
           RaisedButton(
@@ -110,7 +110,7 @@ class ProfileInfoState extends State<ProfileInfo> {
                   print(globals.myUser.lname);
                   print(globals.myUser.username);
                   createGame('GameAdded', 'FieldAdded', 3.3, 3.3, 4);
-                  readGames();
+                  readGames(context);
                   print('firstread');
                   int i = 0;
                   while(i < 3){
@@ -122,7 +122,7 @@ class ProfileInfoState extends State<ProfileInfo> {
                      print(globals.gameslist[i].playspace.lon);
                      i++;
                   } 
-                  updateGame('GameAdded', globals.userId);
+                  updateGame('GameAdded', globals.userId, context);
                   print('post-update');
                   int j = 0;
                   while(j < 3){

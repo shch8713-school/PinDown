@@ -52,7 +52,7 @@ class GameSelectState extends State<GameSelect> {
           text: "Join",
           isDestructiveAction: true,
           onPressed: () {
-            updateGame(gamename, globals.userId);
+            updateGame(gamename, globals.userId, context);
             Navigator.of(context).pushNamed('/map'); //Direct to home page
             print('home page: map');
           },
