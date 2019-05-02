@@ -297,13 +297,13 @@ class MapPageState extends State<MapPage> {
                   minWidth: 8.00,
                   height: 35.00,
                   child: RaisedButton(
-                      child: const Text('Choose/Create an Activity'),
+                      child: const Text('Create an Activity'),
                       textColor: Colors.white,
                       color: Colors.orangeAccent,
                       elevation: 4.0, //shadow of button
                       splashColor: Color(0xFF424242),
                       onPressed: () {
-                        Navigator.of(context).pushNamed('/event_create');
+                        Navigator.of(context).pushNamed('/activity_search');
                       }),
                 ),
               ),

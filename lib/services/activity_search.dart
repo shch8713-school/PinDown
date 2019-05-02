@@ -52,7 +52,7 @@ class _activityState extends State<activity> {
                   ),
                   tooltip: 'Back to searching activity',
                   onPressed: (){
-                    Navigator.of(context).pushNamed('/event_create');
+                    Navigator.of(context).pushNamed('/home');
                   },
                 ),
               SizedBox(width: 250.0,),
@@ -65,7 +65,7 @@ class _activityState extends State<activity> {
                 ),
                 tooltip: 'Home(Map) Page',
                 onPressed: (){
-                  Navigator.of(context).pushNamed('/map');
+                  Navigator.of(context).pushNamed('/home');
                 },
               ),
 //                child: Align(
@@ -139,7 +139,7 @@ class _activityState extends State<activity> {
                   child: Align(
                     alignment: Alignment.center,
                     child: DropdownButton(
-                      items: <String>['Ferrand', 'Norlin Quad', 'Kittridge Fields', 'Engineering Quad'].map((String value){
+                      items: <String>['Ferrand', 'Norlin Quad', 'Kittridge Fields', 'Engineering Quad', 'Business Field', 'Sewall Field', 'Physics Quad'].map((String value){
                         return new DropdownMenuItem<String>(
                           value: value,
                           child: new Text(value),

@@ -4,6 +4,7 @@ import 'package:flutter_alert/flutter_alert.dart';
 import 'globals.dart' as globals;
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:pickup_app/pages/map.dart';
+import 'dart:math';
 //add dependency "firebase_database: ^2.0.3" to pubspec.yaml
 
 //import 'package:flutter/material.dart';
@@ -63,10 +64,13 @@ class User {
 //globals.fields = fields;
 
 var fields = [
-  createField('Ferrand', 40.006009, -105.267693, 1),
-  createField('Norlin Quad', 40.008729, -105.271468, 2),
-  createField('Kittridge Fields', 40.002974, -105.259576, 3),
-  createField('Engineering Quad', 40.006813, -105.264942, 4)
+  createField('Ferrand', 40.005995, -105.269660, 1),
+  createField('Norlin Quad', 40.008309, -105.273120, 2),
+  createField('Kittridge Fields', 40.002470, -105.259921, 3),
+  createField('Engineering Quad', 40.006627, -105.265233, 4),
+  createField('Business Field', 40.005221, -105.262992, 5),
+  createField('Sewall Field', 40.009507, -105.271183, 6),
+  createField('Physics Quad', 40.007350, -105.268030, 7)
 ];
 
 void mapfields() {
@@ -175,6 +179,17 @@ void createGame(
   var location = new Field(fieldname, fieldlat, fieldlon, id);
   var game = new Game.full(title, location);
   String allusers = globals.userId;
+  //creating random value
+  final _random = new Random();
+  /**
+   * Generates a positive random integer uniformly distributed on the range
+   * from [min], inclusive, to [max], exclusive.
+   */
+  double next() => _random.nextDouble();
+  double latadd = next()/3000;
+  double lonadd = next()/3000;
+  //end random value deal
+
   dbref.child('games').child(game.gametype).set({
     //create game in database
     'location': game.playspace.name,
@@ -184,8 +199,8 @@ void createGame(
   dbref.child('games').child(title).child('field').set({
     //create field in game
     'name': location.name,
-    'lat': location.lat,
-    'lon': location.lon,
+    'lat': location.lat + latadd,
+    'lon': location.lon + lonadd,
   });
 }
 
