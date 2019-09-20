@@ -64,25 +64,27 @@ class LoginState extends State<Login> {
   Widget build(BuildContext context) {
     return Scaffold(
       body: Container(
-        child: ListView(
-          padding: EdgeInsets.symmetric(horizontal: 30.0),
-          children: <Widget>[
-            SizedBox(height: 60.0),
-            Column(
+        child: SafeArea(
+            child: ListView(
+              padding: EdgeInsets.symmetric(horizontal: 30.0),
               children: <Widget>[
-                Image.asset('assets/print/logo-print-hd-transparent.png', fit: BoxFit.contain, width: 200,), //Width can be > 100, depends on the .png file of new design
-                SizedBox(height: 30.0),
+                SizedBox(height: 60.0),
+                Column(
+                  children: <Widget>[
+                    Image.asset('assets/logo.png', fit: BoxFit.contain, width: 200,), //Width can be > 100, depends on the .png file of new design
+                    SizedBox(height: 30.0),
+                  ],
+                ),
+                SizedBox(height: 15.0),
+                Form(
+                  key: formKey,
+                  child: new Column(
+                    children: buildLoginInputs() + buildSubmitButtons(),
+                  ),
+                ),
               ],
             ),
-            SizedBox(height: 15.0),
-            Form(
-              key: formKey,
-              child: new Column(
-                children: buildLoginInputs() + buildSubmitButtons(),
-              ),
-            ),
-          ],
-        ),
+        )
       ),
       backgroundColor: Colors.orangeAccent,
     );

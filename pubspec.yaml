@@ -34,6 +34,9 @@ dependencies:
   flutter_date_picker: 0.1.8
   flutter_datetime_picker: 1.1.6
   flutter_cupertino_date_picker: 0.3.0
+  flutter_linkify: 1.0.3
+  url_launcher: ^4.0.3
+
 
 dev_dependencies:
   flutter_test:
@@ -56,6 +59,7 @@ flutter:
   - assets/new_logo.png
   - assets/new_logo1.jpg
   - assets/print/logo-print-hd-transparent.png
+  - assets/logo.png
 
 
 

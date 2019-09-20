@@ -5,6 +5,8 @@ import 'globals.dart' as globals;
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:pickup_app/pages/map.dart';
 import 'dart:math';
+//import 'package:flutter_linkify/flutter_linkify.dart';
+//import 'package:url_launcher/url_launcher.dart';
 //add dependency "firebase_database: ^2.0.3" to pubspec.yaml
 
 //import 'package:flutter/material.dart';
@@ -13,22 +15,27 @@ import 'dart:math';
 class Game {
   String gametype;
   Field playspace;
-  int players;
+  String players; //It has to be string since it's now equal to event
   String allplayers;
+  String description;
+  String time;
+//  String url;
 
   Game();
 
   Game.full(String title, Field fieldspace) {
     this.gametype = title;
     this.playspace = fieldspace;
-    this.players = 1;
+    this.players = "1";
     this.allplayers = '';
   }
-  Game.exists(String title, int mems, String playlist, Field fieldspace) {
+  Game.exists(String title, String mems, String playlist, Field fieldspace, String description, String time) {
     this.gametype = title;
     this.playspace = fieldspace;
     this.players = mems;
     this.allplayers = playlist;
+    this.description = description;
+    this.time = time;
   }
 }
 
@@ -99,35 +106,48 @@ void setmarks(BuildContext context) {
     print(i);
     Marker thismark = Marker(
         markerId: MarkerId(game.gametype),
+
         position: LatLng(
           game.playspace.lat,
           game.playspace.lon,
         ),
         infoWindow:
-            InfoWindow(title: game.gametype, snippet: 'Players:${game.players}'),
+            InfoWindow(title: game.gametype, snippet: 'Event:${game.players}'),
+/* Event = players, so on Firebase, enter players = event name
+* Don't enter Event on Firebase or it won't be recognized.
+ */
+
         onTap: () {
-          showAlert
-          (
+          showAlert(
             context: context,
-            title: 'Join ${game.gametype}?',
-            body: "Location: ${game.playspace.name} \n Players: ${game.players}",
+            title: '${game.gametype}',
+            body: "Event: ${game.players}\nDate/Time: ${game.time}\nEvent Info: ${game.description}\n\nLocation: ${game.playspace.name}",
             actions: [
               AlertAction(
-                text: "Cancel",
+                text: "Nevermind",
                 isDestructiveAction: true,
                 onPressed: () {
+                  updateGame(game.gametype, globals.userId, context);
                   print("Do Nothing");
                 //Navigator.of(context).pushNamed('/home');
                 },
               ),
               AlertAction(
-                text: "Join",
+                text: "Interested",
                 isDestructiveAction: true,
                 onPressed: () {
                   //Navigator.pushNamed(context, '/home'); //Direct to home page
                   updateGame(game.gametype, globals.userId, context);
                 },
               ),
+              AlertAction(
+                text: "Going",
+                isDestructiveAction: true,
+                onPressed: () {
+                  updateGame(game.gametype, globals.userId, context);
+
+                },
+              )
             ],
           );
           
@@ -228,12 +248,12 @@ void readGames(BuildContext context) {
   print('reading games');
   //var tgame = new Game.exists('localgame', 3, 'yeet and yeetet', fields[0]);
   List<Game> games = [];
-  dbref.child('games').once().then((DataSnapshot snapshot) {
+  dbref.child("games").once().then((DataSnapshot snapshot) {
     Map<dynamic, dynamic> values = snapshot.value;
     print(values.toString());
     values.forEach((key, values) {
       dbref
-          .child('games')
+          .child("games")
           .child(key)
           .child('field')
           .once()
@@ -243,7 +263,8 @@ void readGames(BuildContext context) {
             values['players'],
             values['playerlist'],
             new Field(fsnap.value['name'], fsnap.value['lat'],
-                fsnap.value['lon'], fsnap.value['id'])));
+                fsnap.value['lon'], fsnap.value['id']),
+            values['description'], values['time']));
         globals.gameslist = games;
         Map<String, Game> gamemap = new Map.fromIterable(
           games,

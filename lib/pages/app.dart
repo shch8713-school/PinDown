@@ -13,6 +13,7 @@ import 'package:pickup_app/services/auth_provider.dart';
 import 'package:pickup_app/services/auth.dart';
 import 'corepage.dart';
 import 'package:pickup_app/services/globals.dart' as globals;
+import 'new_front_page.dart';
 
 
 class MyApp extends StatelessWidget {
@@ -24,11 +25,12 @@ class MyApp extends StatelessWidget {
         auth: Auth(),
 
         child: MaterialApp(
-          title: 'Pick-Up',
-          initialRoute: '/Prelogin',
+          title: 'PinDown',
+          initialRoute: '/new_front_page',
           routes: {
             '/': (context) => CorePage(),
             '/login': (context) => Login(),
+            '/new_front_page': (context) => FrontPage(),
             '/home': (context) => MapPage(),
             '/form': (context) => RegForm(),
             '/forgot_password': (context) => Forgot(),

@@ -24,7 +24,7 @@ class _PreState extends State<Pre_> {
               SizedBox(height: 140.0),
               Column(
                 children: <Widget>[
-                  Image.asset('assets/print/logo-print-hd-transparent.png', width: 200,), //Width can be > 100, depends on the .png file of new design
+                  Image.asset('assets/logo.png', width: 200,), //Width can be > 100, depends on the .png file of new design
                   SizedBox(height: 60.0),
                 ],
               ),
