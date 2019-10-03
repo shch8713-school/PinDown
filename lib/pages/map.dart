@@ -1,12 +1,12 @@
+import 'dart:async';
+
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
-import 'dart:async';
 
 //import 'dart:ui' as ui;
 import 'package:pickup_app/services/globals.dart' as globals;
 import 'package:pickup_app/services/auth_provider.dart';
-
 
 class MapPage extends StatefulWidget {
   //MapPage({this.onLoggedOut});
@@ -109,22 +109,6 @@ class MapPageState extends State<MapPage> {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      // home: Scaffold(
-      //   key: _scaffoldKey,
-      //    drawer:  Container(
-      //     width: 250.0,
-      //     color: Colors.orangeAccent,
-      //     child: new ListView(
-      //       children: <Widget>[
-      //         new DrawerHeader(
-      //           child: new Text('Hello!',
-      //             style: new TextStyle(
-      //               fontSize: 16.0,
-      //               color: const Color(0xFFFFAB40),
-      //               fontWeight: FontWeight.bold,
-      //               fontFamily: "Roboto"
-      //             ),
-      //           ),
       home: Scaffold(
         key: _scaffoldKey,
         drawer: new Container(
@@ -133,10 +117,6 @@ class MapPageState extends State<MapPage> {
             child: new ListView(children: <Widget>[
               new Container(
                 child: new DrawerHeader(
-//                    child: new CircleAvatar(
-//                      maxRadius: 10.0,
-//                      backgroundColor: Colors.orangeAccent,
-//                      padding: EdgeInsets.all(15.0),
                   child: Column(
                     children: <Widget>[
                       StreamBuilder(
@@ -150,7 +130,9 @@ class MapPageState extends State<MapPage> {
                               return Align(
                                 alignment: Alignment.topLeft,
                                 child: Text(
-                                  'Hello ' + snapshot.data.documents[0]['first_name'] + '!',
+                                  'Hello ' +
+                                      snapshot.data.documents[0]['first_name'] +
+                                      '!',
                                   style: new TextStyle(
                                       fontSize: 16.0,
                                       color: const Color(0xFFFFAB40),
@@ -164,16 +146,6 @@ class MapPageState extends State<MapPage> {
                               );
                             }
                           }),
-//                          new Text(
-//                            "Hello User!",
-//                            style: new TextStyle(
-//                                fontSize: 16.0,
-//                                color: const Color(0xFFFFAB40),
-////                                fontWeight: FontWeight.bold,
-//                                fontFamily: "Roboto"
-//                            ),
-//                            textAlign: TextAlign.left,
-//                          ),
                       Center(
                         child: new Container(
                           width: 70.0,
@@ -238,38 +210,6 @@ class MapPageState extends State<MapPage> {
 //                                  Icon(Icons.settings),
 //                                  title: Text('Settings')),
                             ),
-//                        ListTile(
-//                            leading: Container(
-//                          child: FlatButton(
-//                            child: Align(
-//                              alignment: Alignment.centerLeft,
-//                              child: Text(
-//                                "Log Out",
-//                                style: TextStyle(
-//                                  fontSize: 16.0,
-//                                  color: Colors.white,
-//                                ),
-//                              ),
-//                            ),
-//                            onPressed: () {
-//                              globals.userId = null;
-//                              globals.userEmail = null;
-//                              widget.lougOut(context);
-//                              globals.myUser = null;
-//                              globals.userId = null;
-//                              globals.userEmail = null;
-//                              globals.gameslist = null;
-//                              globals.gamemap = null;
-//                              globals.fields = null;
-//                              globals.fieldmap = null;
-//                              Navigator.pushNamed(context, '/');
-//                              //var globals;
-//                            },
-//                          ),
-//                        )
-////                                  Icon(Icons.settings),
-////                                   title: Text('Settings')),
-//                            ),
                       ])))), //endof inner container
             ])),
         body: Stack(
@@ -278,30 +218,26 @@ class MapPageState extends State<MapPage> {
 //              height: MediaQuery.of(context).size.height,
 //              width: MediaQuery.of(context).size.width,
               child: GoogleMap(
-                myLocationEnabled: true,
+                  myLocationEnabled: true,
                   compassEnabled: true,
                   mapType: MapType.normal,
                   initialCameraPosition: CameraPosition(
-                      target: LatLng(40.006941, -105.271505),
+                    target: LatLng(40.006941, -105.271505),
                     zoom: 15.0,
                   ),
-
                   onMapCreated: (GoogleMapController controller) {
                     _controller.complete(controller);
                     mapController = controller;
                   },
-
-                  markers: globals.mapmarks
-              ),
+                  markers: globals.mapmarks),
             ),
-
             Padding(
               padding: const EdgeInsets.all(25.0),
               child: Align(
                 alignment: Alignment.topCenter,
                 child: RaisedButton(
 //                  tooltip: 'Menu',
-                child: const Text('Pin filter for events'),
+                  child: const Text('Pin filter for events'),
                   textColor: Colors.white,
                   color: Colors.orangeAccent,
 //                  iconSize: 32.00,
@@ -312,26 +248,6 @@ class MapPageState extends State<MapPage> {
                 ),
               ),
             ),
-//          SizedBox(height: 10.0,),
-//            Padding(
-//              padding: const EdgeInsets.all(25.0),
-//              child: Align(
-//                alignment: Alignment.topCenter,
-//                child: ButtonTheme(
-//                  minWidth: 8.00,
-//                  height: 35.00,
-//                  child: RaisedButton(
-//                      child: const Text('Create an Activity'),
-//                      textColor: Colors.white,
-//                      color: Colors.orangeAccent,
-//                      elevation: 4.0, //shadow of button
-//                      splashColor: Color(0xFF424242),
-//                      onPressed: () {
-//                        Navigator.of(context).pushNamed('/activity_search');
-//                      }),
-//                ),
-//              ),
-//            )
           ],
         ),
       ),
