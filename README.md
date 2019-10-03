@@ -11,3 +11,8 @@ There's no requirement to log in and sign up, just click one buttons and users c
 #### Resources
 
 The current build of the Android app file (.apk) can be downloaded from the link on our [website](https://sites.google.com/colorado.edu/pickup/home), or directly from [google drive](https://drive.google.com/open?id=1-JkkXLGAbPAe2mswF32u6a6ixiAdVTDr). Attempting to open the app on a phone running Android should prompt the user to install the app, after tapping through a number of security warnings. Here is a [tutorial](https://www.youtube.com/watch?v=kDkV3jBYi2c).
+
+#### Build
+
+for icons run this
+`flutter packages pub run flutter_launcher_icons:main`
